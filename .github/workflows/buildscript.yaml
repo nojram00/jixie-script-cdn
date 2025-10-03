@@ -1,16 +1,14 @@
-name: Build and Deploy Script
+name: Test Build Script
 
 on:
   push:
     branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
-  build-and-deploy:
+  test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
     
     steps:
     - uses: actions/checkout@v4
@@ -24,18 +22,12 @@ jobs:
     - name: Install dependencies
       run: npm install
     
-    - name: Build and minify
+    - name: Check dist directory exists
       run: |
-        mkdir -p dist
-        npm run build
+        if [ ! -d "dist" ]; then
+          echo "Error: dist directory not found"
+          exit 1
+        fi
     
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-    
-    - name: Upload to GitHub Pages
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: dist/
-    
-    - name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v4
+    - name: Test JS files in dist
+      run: npm test -- dist/
