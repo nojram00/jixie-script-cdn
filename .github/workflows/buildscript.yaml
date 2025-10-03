@@ -1,14 +1,16 @@
-name: Build and Minify Script
+name: Build and Deploy Script
 
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     
     steps:
     - uses: actions/checkout@v4
@@ -24,11 +26,16 @@ jobs:
     
     - name: Build and minify
       run: |
-        mkdir dist
+        mkdir -p dist
         npm run build
     
-    - name: Upload dist folder
-      uses: actions/upload-artifact@v4
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+    
+    - name: Upload to GitHub Pages
+      uses: actions/upload-pages-artifact@v3
       with:
-        name: build-files
         path: dist/
+    
+    - name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v4
