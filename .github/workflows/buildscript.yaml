@@ -25,7 +25,6 @@ jobs:
     - name: Build and minify
       run: |
         mkdir dist
-        cd src
         npm run build
     
     - name: Upload dist folder

@@ -4,7 +4,7 @@
   "main": "jx-loader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "terser jx-loader.js --compress --output dist/jx-loader.min.js"
+    "build": "terser src/jx-loader.js --compress --output dist/jx-loader.min.js"
   },
   "keywords": [],
   "author": "",
