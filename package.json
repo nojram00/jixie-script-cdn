@@ -1,0 +1,16 @@
+{
+  "name": "scriptsheeh",
+  "version": "1.0.0",
+  "main": "jx-loader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "terser jx-loader.js --compress --output dist/jx-loader.min.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "terser": "^5.44.0"
+  }
+}
